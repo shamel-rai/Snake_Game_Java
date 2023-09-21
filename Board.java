@@ -35,6 +35,8 @@ public class Board extends JPanel implements ActionListener {
     private int dots;
     private Timer timer;
 
+    private int score = 0;
+
     Board(){
 //        creating object and adding event of the adapter
         addKeyListener(new Adapter());
@@ -87,6 +89,7 @@ public class Board extends JPanel implements ActionListener {
         }
         else if(inGame){
             draw(g);
+            scoreBoard(g);
         }
         else{
             gameOver(g);
@@ -143,6 +146,18 @@ public class Board extends JPanel implements ActionListener {
         int y = 500 / 2;
 
         g.drawString(msg, x, y);
+
+        String scoremsg = "Score: " + score;
+        Font scoreFont = new Font("SANS_SERIF", Font.BOLD,35);
+        FontMetrics scoremetrics = getFontMetrics(scoreFont);
+
+        g.setFont(scoreFont);
+        g.setColor(Color.GREEN);
+
+        int scorex= (500 - scoremetrics.stringWidth(scoremsg))/2;
+        int scorey = y +metrics.getHeight() +20;
+        g.drawString(scoremsg, scorex,scorey);
+
     }
 
 
@@ -175,9 +190,33 @@ public class Board extends JPanel implements ActionListener {
     public  void checkapple(){
         if((x[0]== apple_x) &&(y[0] ==apple_y)){
             dots++;
+            score++;
             locateApple();
+
         }
     }
+
+//    Scoreboard for the game
+    public void scoreBoard(Graphics g){
+        if(inGame) {
+            String msg = "SCORE: " + score;
+            Font font = new Font("SANS_SERIF", Font.BOLD, 35);
+            FontMetrics metrics = getFontMetrics(font);
+
+            g.setFont(font);
+            g.setColor(Color.GREEN);
+
+            int x = 500 - metrics.stringWidth(msg) - 10;
+            int y = 30;
+
+            g.drawString(msg, x, y);
+
+        }
+
+    }
+
+
+
 
 //    to check for collision
     public void checkCollision(){
