@@ -158,6 +158,7 @@ public class Board extends JPanel implements ActionListener {
         int scorey = y +metrics.getHeight() +20;
         g.drawString(scoremsg, scorex,scorey);
 
+
     }
 
 
@@ -287,7 +288,6 @@ public class Board extends JPanel implements ActionListener {
         }
         if(key ==KeyEvent.VK_SPACE){
             gameState = true;
-            inGame =true;
         }
 
     }
