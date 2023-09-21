@@ -30,6 +30,7 @@ public class Board extends JPanel implements ActionListener {
 
 //    for game reference
     private boolean inGame = true;
+    private boolean gameState = false;
 
     private int dots;
     private Timer timer;
@@ -81,7 +82,16 @@ public class Board extends JPanel implements ActionListener {
     }
     public void paintComponent(Graphics g){
         super.paintComponent(g);
-        draw(g);
+        if(!gameState){
+            gameStart(g);
+        }
+        else if(inGame){
+            draw(g);
+        }
+        else{
+            gameOver(g);
+        }
+
     }
 
 //    image Draw garna lai
@@ -105,6 +115,21 @@ public class Board extends JPanel implements ActionListener {
         }
 
     }
+
+    public void gameStart(Graphics g){
+        String msg = "PLEASE PRESS SPACE TO START";
+        Font font = new Font("SANS_SERIF", Font.BOLD, 25);
+        FontMetrics metrics = getFontMetrics(font);
+
+        g.setFont(font);
+        g.setColor(Color.GREEN);
+
+        int x = (500 - metrics.stringWidth(msg)) / 2;
+        int y = 500 / 2;
+
+        g.drawString(msg, x, y);
+    }
+
 //    gameOVer
     public void gameOver(Graphics g){
         String msg = "GAME OVER";
@@ -220,6 +245,10 @@ public class Board extends JPanel implements ActionListener {
             rightDirection =false;
             leftDirection =false;
             downDirection =true;
+        }
+        if(key ==KeyEvent.VK_SPACE){
+            gameState = true;
+            inGame =true;
         }
 
     }
